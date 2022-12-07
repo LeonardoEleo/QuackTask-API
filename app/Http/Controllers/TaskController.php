@@ -18,7 +18,10 @@ class TaskController extends Controller
     {
         $tasks = Task::all();
 
-        return response()-> json($tasks);
+        return response()-> json([
+            'message' => 'tasks retrieved successfully',
+            'data' => $tasks
+        ]);
     }
 
     /**
@@ -44,7 +47,7 @@ class TaskController extends Controller
 
         return response()->json([
             'message' => 'task created successfully',
-            'Task' => $task
+            'data' => $task
         ], 201);
     }
 
@@ -58,7 +61,7 @@ class TaskController extends Controller
     {
         return response()->json ([
             'message' => 'success',
-            'Task' => $task
+            'data' => $task
         ], 200);
     }
 
@@ -88,7 +91,7 @@ class TaskController extends Controller
 
         return response()->json([
             'message' => 'Task updated successfully',
-            'Task' => $task
+            'data' => $task
         ], 200);
     }
 
