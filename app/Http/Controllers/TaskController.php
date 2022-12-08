@@ -72,21 +72,24 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, Task $Task)
     {
-        $validated = Validator::make($request->all(), [
-            'nome' => 'required|max:255',
-            'descricao' => 'required'
-        ]);
+        $task = Task::find($Task->id);
 
-        if ($validated->fails()) {
+        if(!$task) {
             return response()->json([
-                'message' => 'Your request is missing data'
-            ], 400);
+                'message' => 'Task not found'
+            ], 404);
         }
 
-        $task->update($request->all());
+        $request->nome ? $task->nome = $request->nome: null;
+        $request->descricao ? $task->descricao = $request->descricao: null;
+        $request->data_conclusao ? $task->data_conclusao = $request->data_conclusao: null;
+        if (isset($request->status)) {
+            $task->status = $request->status;
+        }
 
+        $task->update();
         
 
         return response()->json([
@@ -109,5 +112,9 @@ class TaskController extends Controller
             'message' => 'Task deleted successfully'
         ], 200);
     }
+
+    
+   
     
 }
+

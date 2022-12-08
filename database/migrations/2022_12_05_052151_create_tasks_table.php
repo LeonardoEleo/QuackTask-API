@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->string('descricao');
-            $table->date('data_conclusao')->nullable();
+            $table->dateTime('data_conclusao')->nullable();
             $table->boolean('status')->default(0);
             $table->timestamps();
         });
